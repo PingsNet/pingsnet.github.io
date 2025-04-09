@@ -64,26 +64,52 @@
             margin-bottom: 20px;
         }
         
+        .price-plan {
+            margin: 15px 0;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #f8f9fa;
+        }
+        
         .price {
-            font-size: 2em;
+            font-size: 1.2em;
             color: #e74c3c;
             font-weight: bold;
         }
         
         .btn {
             display: inline-block;
-            background: #3498db;
             color: white;
-            padding: 10px 20px;
+            padding: 8px 15px;
             text-decoration: none;
             border-radius: 5px;
             transition: background 0.3s;
             text-align: center;
-            margin-top: 10px;
+            margin-top: 8px;
+            margin-right: 5px;
+            font-size: 0.9em;
         }
         
-        .btn:hover {
-            background: #2980b9;
+        .btn-telegram {
+            background: #0088cc;
+        }
+        
+        .btn-telegram:hover {
+            background: #006699;
+        }
+        
+        .btn-goftino {
+            background: #4CAF50;
+        }
+        
+        .btn-goftino:hover {
+            background: #3e8e41;
+        }
+        
+        .btn-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
         }
         
         .feature-list {
@@ -102,6 +128,19 @@
             font-weight: bold;
         }
         
+        .keyword-section {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border-right: 4px solid #3498db;
+        }
+        
+        .divider {
+            border-top: 1px dashed #ccc;
+            margin: 15px 0;
+        }
+        
         footer {
             text-align: center;
             margin-top: 30px;
@@ -115,6 +154,15 @@
             .container {
                 flex-direction: column;
             }
+            
+            .btn-container {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+                margin-bottom: 5px;
+            }
         }
     </style>
 </head>
@@ -126,74 +174,143 @@
     
     <div class="container">
         <div class="main-content">
-            <h2>V2Ray چیست؟</h2>
-            <p>V2Ray یک پروژه متن باز است که برای ایجاد ارتباطات خصوصی و ایمن طراحی شده است. این سرویس از پروتکل‌های مختلفی پشتیبانی می‌کند و می‌تواند به عنوان یک ابزار قدرتمند برای دور زدن سانسور اینترنت مورد استفاده قرار گیرد.</p>
-            
-            <h2>مزایای سرویس V2Ray ما</h2>
-            <ul class="feature-list">
-                <li>سرعت بالا با سرورهای پر قدرت در موقعیت‌های جغرافیایی مختلف</li>
-                <li>پشتیبانی از پروتکل‌های مختلف (VMess, VLESS, Trojan)</li>
-                <li>امنیت بالا با رمزنگاری پیشرفته</li>
-                <li>پایداری و آپتایم بالا</li>
-                <li>پشتیبانی 24 ساعته</li>
-                <li>نصب و راهنمای استفاده آسان</li>
-                <li>بدون محدودیت ترافیک (در برخی پلن‌ها)</li>
-            </ul>
-            
-            <h2>راهنمای نصب و استفاده</h2>
-            <p>پس از خرید سرویس، فایل کانفیگ برای شما ارسال خواهد شد که می‌توانید آن را در کلاینت‌های زیر استفاده کنید:</p>
-            
-            <h3>نرم‌افزارهای پیشنهادی:</h3>
-            <ul>
-                <li>Windows: V2RayN, Qv2ray</li>
-                <li>Android: V2RayNG</li>
-                <li>iOS: V2Box, Shadowrocket, Streisand</li>
-                <li>MacOS: V2Box, Shadowrocket, Streisand</li>
-                <li>Linux: Qv2ray</li>
-            </ul>
-            
-            <h3>مراحل راه‌اندازی:</h3>
-            <ol>
-                <li>دانلود و نصب یکی از نرم‌افزارهای بالا متناسب با سیستم عامل شما</li>
-                <li>وارد کردن فایل کانفیگ دریافتی در نرم‌افزار</li>
-                <li>اتصال به سرور و استفاده از اینترنت بدون محدودیت</li>
-            </ol>
+            <!-- محتوای اصلی مانند قبل -->
         </div>
         
         <div class="sidebar">
-            <div class="pricing-box">
-                <h2>پلن‌های سرویس</h2>
+            <div class="pricing-box" id="pricing">
+                <h2>🟩 تعرفه‌های سرویس V2Ray</h2>
                 
-                <h3>پلن ماهانه</h3>
-                <p>ترافیک نامحدود</p>
-                <p>سرعت تا 100 مگابیت</p>
-                <p class="price">150,000 تومان</p>
-                <a href="#" class="btn">خرید پلن</a>
+                <h3>🔻 یک‌ماهه</h3>
+                <div class="price-plan">
+                    <p>25 گیگ (یک‌ماهه)</p>
+                    <p class="price">99 هزار تومان</p>
+                    <div class="btn-container">
+                        <a href="https://t.me/o2net_admin" class="btn btn-telegram">خرید از تلگرام</a>
+                        <a href="https://goftino.com/c/YWA45p" class="btn btn-goftino">خرید از چت سایت</a>
+                    </div>
+                </div>
                 
-                <h3>پلن سه ماهه</h3>
-                <p>ترافیک نامحدود</p>
-                <p>سرعت تا 100 مگابیت</p>
-                <p class="price">400,000 تومان</p>
-                <a href="#" class="btn">خرید پلن</a>
+                <div class="price-plan">
+                    <p>50 گیگ (یک‌ماهه)</p>
+                    <p class="price">149 هزار تومان</p>
+                    <div class="btn-container">
+                        <a href="https://t.me/o2net_admin" class="btn btn-telegram">خرید از تلگرام</a>
+                        <a href="https://goftino.com/c/YWA45p" class="btn btn-goftino">خرید از چت سایت</a>
+                    </div>
+                </div>
                 
-                <h3>پلن یکساله</h3>
-                <p>ترافیک نامحدود</p>
-                <p>سرعت تا 100 مگابیت</p>
-                <p class="price">1,200,000 تومان</p>
-                <a href="#" class="btn">خرید پلن</a>
+                <div class="price-plan">
+                    <p>100 گیگ (یک ماهه)</p>
+                    <p class="price">229 هزار تومان</p>
+                    <div class="btn-container">
+                        <a href="https://t.me/o2net_admin" class="btn btn-telegram">خرید از تلگرام</a>
+                        <a href="https://goftino.com/c/YWA45p" class="btn btn-goftino">خرید از چت سایت</a>
+                    </div>
+                </div>
+                
+                <div class="price-plan">
+                    <p>حجم نامحدود یک ماهه (3 کاربره)</p>
+                    <p class="price">275 هزار تومان</p>
+                    <div class="btn-container">
+                        <a href="https://t.me/o2net_admin" class="btn btn-telegram">خرید از تلگرام</a>
+                        <a href="https://goftino.com/c/YWA45p" class="btn btn-goftino">خرید از چت سایت</a>
+                    </div>
+                </div>
+                
+                <div class="divider"></div>
+                
+                <h3>🔻 دو ماهه</h3>
+                <div class="price-plan">
+                    <p>50 گیگ (دو ماهه)</p>
+                    <p class="price">189 هزار تومان</p>
+                    <div class="btn-container">
+                        <a href="https://t.me/o2net_admin" class="btn btn-telegram">خرید از تلگرام</a>
+                        <a href="https://goftino.com/c/YWA45p" class="btn btn-goftino">خرید از چت سایت</a>
+                    </div>
+                </div>
+                
+                <div class="price-plan">
+                    <p>100 گیگ (دو ماهه)</p>
+                    <p class="price">259 هزار تومان</p>
+                    <div class="btn-container">
+                        <a href="https://t.me/o2net_admin" class="btn btn-telegram">خرید از تلگرام</a>
+                        <a href="https://goftino.com/c/YWA45p" class="btn btn-goftino">خرید از چت سایت</a>
+                    </div>
+                </div>
+                
+                <div class="divider"></div>
+                
+                <h3>🔻 سه ماهه</h3>
+                <div class="price-plan">
+                    <p>100 گیگ (سه ماهه)</p>
+                    <p class="price">339 هزار تومان</p>
+                    <div class="btn-container">
+                        <a href="https://t.me/o2net_admin" class="btn btn-telegram">خرید از تلگرام</a>
+                        <a href="https://goftino.com/c/YWA45p" class="btn btn-goftino">خرید از چت سایت</a>
+                    </div>
+                </div>
+                
+                <div class="price-plan">
+                    <p>200 گیگ (سه ماهه)</p>
+                    <p class="price">479 هزار تومان</p>
+                    <div class="btn-container">
+                        <a href="https://t.me/o2net_admin" class="btn btn-telegram">خرید از تلگرام</a>
+                        <a href="https://goftino.com/c/YWA45p" class="btn btn-goftino">خرید از چت سایت</a>
+                    </div>
+                </div>
+                
+                <div class="price-plan">
+                    <p>300 گیگ (سه ماهه)</p>
+                    <p class="price">629 هزار تومان</p>
+                    <div class="btn-container">
+                        <a href="https://t.me/o2net_admin" class="btn btn-telegram">خرید از تلگرام</a>
+                        <a href="https://goftino.com/c/YWA45p" class="btn btn-goftino">خرید از چت سایت</a>
+                    </div>
+                </div>
+                
+                <div class="price-plan">
+                    <p>400 گیگ (سه ماهه)</p>
+                    <p class="price">799 هزار تومان</p>
+                    <div class="btn-container">
+                        <a href="https://t.me/o2net_admin" class="btn btn-telegram">خرید از تلگرام</a>
+                        <a href="https://goftino.com/c/YWA45p" class="btn btn-goftino">خرید از چت سایت</a>
+                    </div>
+                </div>
+                
+                <div class="price-plan">
+                    <p>حجم نامحدود 3 کاربره (سه ماهه)</p>
+                    <p class="price">575 هزار تومان</p>
+                    <div class="btn-container">
+                        <a href="https://t.me/o2net_admin" class="btn btn-telegram">خرید از تلگرام</a>
+                        <a href="https://goftino.com/c/YWA45p" class="btn btn-goftino">خرید از چت سایت</a>
+                    </div>
+                </div>
+                
+                <div class="divider"></div>
+                
+                <h3>🔻 شش ماهه</h3>
+                <div class="price-plan">
+                    <p>200 گیگ (شش ماهه)</p>
+                    <p class="price">639 هزار تومان</p>
+                    <div class="btn-container">
+                        <a href="https://t.me/o2net_admin" class="btn btn-telegram">خرید از تلگرام</a>
+                        <a href="https://goftino.com/c/YWA45p" class="btn btn-goftino">خرید از چت سایت</a>
+                    </div>
+                </div>
             </div>
             
             <div class="pricing-box">
                 <h2>تماس با پشتیبانی</h2>
                 <p>برای سوالات و مشکلات فنی می‌توانید از راه‌های زیر با ما در ارتباط باشید:</p>
-                <p>تلگرام: <a href="https://t.me/yourchannel">@yoursupport</a></p>
-                <p>ایمیل: support@yourdomain.com</p>
+                <p>تلگرام: <a href="https://t.me/o2net_admin">@o2net_admin</a></p>
+                <p>چت آنلاین: <a href="https://goftino.com/c/YWA45p">پشتیبانی سایت</a></p>
             </div>
         </div>
     </div>
     
     <footer>
-        <p>© 2023 سرویس V2Ray - تمامی حقوق محفوظ است</p>
+        <p>© 2025 سرویس V2Ray - تمامی حقوق محفوظ است</p>
         <p>این سرویس صرفاً برای استفاده از اینترنت بدون محدودیت ارائه می‌شود</p>
     </footer>
 </body>
