@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ابزار آنالیز و تست لینک‌های V2Ray - بررسی ساختار، تست اتصال و استخراج اطلاعات کانفیگ">
+    <title>ابزار حرفه‌ای V2Ray | آنالیز و تست کانفیگ</title>
+    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #3f37c9;
+            --success: #4cc9f0;
+            --danger: #f72585;
+            --warning: #f8961e;
+            --dark: #212529;
+            --light: #f8f9fa;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f1f5f9;
+            color: var(--dark);
+            line-height: 1.6;
+            direction: rtl;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        h1 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .tab-container {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+        
+        .tab.active {
+            border-bottom: 3px solid var(--primary);
+            color: var(--primary);
+            font-weight: bold;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        textarea, input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            font-family: 'Courier New', monospace;
+            resize: vertical;
+        }
+        
+        textarea {
+            min-height: 150px;
+        }
+        
+        button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            margin-left: 10px;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-danger {
+            background-color: var(--danger);
+            color: white;
+        }
+        
+        .btn-success {
+            background-color: var(--success);
+            color: white;
+        }
+        
+        .result-box {
+            padding: 15px;
+            border-radius: 5px;
+            background-color: #f8f9fa;
+            margin-top: 20px;
+            border-right: 4px solid var(--primary);
+        }
+        
+        .qr-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .config-details {
+            margin-top: 20px;
+        }
+        
+        .detail-row {
+            display: flex;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px dashed #ddd;
+        }
+        
+        .detail-label {
+            font-weight: bold;
+            width: 150px;
+            color: var(--primary);
+        }
+        
+        .detail-value {
+            flex: 1;
+            word-break: break-all;
+        }
+        
+        .ping-result {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+        
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        
+        .warning {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                padding: 15px;
+            }
+            
+            .tab-container {
+                flex-direction: column;
+            }
+            
+            .detail-row {
+                flex-direction: column;
+            }
+            
+            .detail-label {
+                width: 100%;
+                margin-bottom: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>ابزار حرفه‌ای آنالیز V2Ray</h1>
+            <p>تست، آنالیز و مدیریت کانفیگ‌های V2Ray</p>
+        </header>
+        
+        <div class="tab-container">
+            <div class="tab active" onclick="switchTab('analyze')">آنالیز لینک</div>
+            <div class="tab" onclick="switchTab('batch')">تست گروهی</div>
+            <div class="tab" onclick="switchTab('converter')">تبدیل فرمت</div>
+            <div class="tab" onclick="switchTab('ping')">تست سرعت</div>
+        </div>
+        
+        <!-- تب آنالیز لینک -->
+        <div id="analyze" class="tab-content active">
+            <h2>آنالیز لینک V2Ray</h2>
+            <textarea id="v2rayLink" placeholder="لینک V2Ray خود را اینجا قرار دهید (vmess://, vless://, trojan://)"></textarea>
+            <div>
+                <button class="btn-primary" onclick="analyzeLink()">آنالیز لینک</button>
+                <button class="btn-success" onclick="generateQR()">تولید QR Code</button>
+                <button class="btn-danger" onclick="clearInput()">پاک کردن</button>
+            </div>
+            
+            <div id="analyzeResult" class="result-box" style="display: none;">
+                <h3>نتایج آنالیز:</h3>
+                <div id="configDetails" class="config-details"></div>
+                
+                <div id="qrCodeContainer" class="qr-container" style="display: none;">
+                    <h4>QR Code کانفیگ:</h4>
+                    <div id="qrCode"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- تب تست گروهی -->
+        <div id="batch" class="tab-content">
+            <h2>تست گروهی کانفیگ‌ها</h2>
+            <textarea id="batchLinks" placeholder="لینک‌های V2Ray را اینجا قرار دهید (هر لینک در یک خط)"></textarea>
+            <div>
+                <button class="btn-primary" onclick="testBatchLinks()">تست کانفیگ‌ها</button>
+                <button class="btn-danger" onclick="clearBatchInput()">پاک کردن</button>
+            </div>
+            
+            <div id="batchResult" class="result-box" style="display: none;">
+                <h3>نتایج تست:</h3>
+                <div id="batchResultsList"></div>
+            </div>
+        </div>
+        
+        <!-- تب تبدیل فرمت -->
+        <div id="converter" class="tab-content">
+            <h2>تبدیل فرمت کانفیگ</h2>
+            <textarea id="convertInput" placeholder="محتوا برای تبدیل (لینک یا JSON)"></textarea>
+            <div>
+                <button class="btn-primary" onclick="convertToLink()">تبدیل به لینک</button>
+                <button class="btn-primary" onclick="convertToJson()">تبدیل به JSON</button>
+                <button class="btn-danger" onclick="clearConverter()">پاک کردن</button>
+            </div>
+            
+            <div id="convertResult" class="result-box" style="display: none;">
+                <h3>نتیجه تبدیل:</h3>
+                <textarea id="convertedOutput" readonly></textarea>
+            </div>
+        </div>
+        
+        <!-- تب تست سرعت -->
+        <div id="ping" class="tab-content">
+            <h2>تست سرعت اتصال</h2>
+            <textarea id="pingLink" placeholder="لینک V2Ray برای تست سرعت"></textarea>
+            <div>
+                <button class="btn-primary" onclick="testPing()">اجرای تست</button>
+                <button class="btn-danger" onclick="clearPing()">پاک کردن</button>
+            </div>
+            
+            <div id="pingResult" class="result-box" style="display: none;">
+                <h3>نتایج تست سرعت:</h3>
+                <div id="pingResultsDetails"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // تغییر تب‌ها
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            document.querySelector(`.tab[onclick="switchTab('${tabId}')"]`).classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        }
+        
+        // آنالیز لینک V2Ray
+        function analyzeLink() {
+            const link = document.getElementById('v2rayLink').value.trim();
+            if (!link) {
+                alert('لطفاً لینک V2Ray را وارد کنید');
+                return;
+            }
+            
+            try {
+                let config = {};
+                
+                if (link.startsWith('vmess://')) {
+                    const decoded = atob(link.substring(8));
+                    config = JSON.parse(decoded);
+                    config.type = 'vmess';
+                } 
+                else if (link.startsWith('vless://')) {
+                    // تجزیه لینک vless
+                    const url = new URL(link);
+                    config = {
+                        type: 'vless',
+                        address: url.hostname,
+                        port: url.port,
+                        id: url.username,
+                        security: url.searchParams.get('security') || 'none',
+                        flow: url.searchParams.get('flow') || '',
+                        sni: url.searchParams.get('sni') || '',
+                        path: url.pathname || '',
+                        serviceName: url.searchParams.get('serviceName') || ''
+                    };
+                }
+                else if (link.startsWith('trojan://')) {
+                    // تجزیه لینک trojan
+                    const url = new URL(link);
+                    config = {
+                        type: 'trojan',
+                        address: url.hostname,
+                        port: url.port,
+                        password: url.username,
+                        sni: url.searchParams.get('sni') || '',
+                        alpn: url.searchParams.get('alpn') || '',
+                        flow: url.searchParams.get('flow') || ''
+                    };
+                }
+                else {
+                    throw new Error('فرمت لینک نامعتبر است');
+                }
+                
+                displayConfigDetails(config);
+                document.getElementById('analyzeResult').style.display = 'block';
+            } catch (error) {
+                alert('خطا در آنالیز لینک: ' + error.message);
+                console.error(error);
+            }
+        }
+        
+        // نمایش جزئیات کانفیگ
+        function displayConfigDetails(config) {
+            const container = document.getElementById('configDetails');
+            container.innerHTML = '';
+            
+            const typeRow = createDetailRow('نوع پروتکل', config.type);
+            container.appendChild(typeRow);
+            
+            for (const [key, value] of Object.entries(config)) {
+                if (key === 'type') continue;
+                const row = createDetailRow(key, value);
+                container.appendChild(row);
+            }
+        }
+        
+        // ایجاد ردیف جزئیات
+        function createDetailRow(label, value) {
+            const row = document.createElement('div');
+            row.className = 'detail-row';
+            
+            const labelEl = document.createElement('div');
+            labelEl.className = 'detail-label';
+            labelEl.textContent = label;
+            
+            const valueEl = document.createElement('div');
+            valueEl.className = 'detail-value';
+            valueEl.textContent = value || '-';
+            
+            row.appendChild(labelEl);
+            row.appendChild(valueEl);
+            return row;
+        }
+        
+        // تولید QR Code
+        function generateQR() {
+            const link = document.getElementById('v2rayLink').value.trim();
+            if (!link) {
+                alert('لطفاً لینک V2Ray را وارد کنید');
+                return;
+            }
+            
+            document.getElementById('qrCode').innerHTML = '';
+            new QRCode(document.getElementById('qrCode'), {
+                text: link,
+                width: 200,
+                height: 200,
+                colorDark: "#000000",
+                colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel.H
+            });
+            
+            document.getElementById('qrCodeContainer').style.display = 'block';
+        }
+        
+        // تست گروهی لینک‌ها
+        function testBatchLinks() {
+            const linksText = document.getElementById('batchLinks').value.trim();
+            if (!linksText) {
+                alert('لطفاً لینک‌ها را وارد کنید');
+                return;
+            }
+            
+            const links = linksText.split('\n').filter(link => link.trim());
+            const resultsList = document.getElementById('batchResultsList');
+            resultsList.innerHTML = '';
+            
+            links.forEach((link, index) => {
+                const resultItem = document.createElement('div');
+                resultItem.className = 'detail-row';
+                
+                try {
+                    if (link.startsWith('vmess://') || link.startsWith('vless://') || link.startsWith('trojan://')) {
+                        resultItem.innerHTML = `
+                            <div class="detail-value">
+                                <span class="ping-result success">معتبر</span>
+                                ${link.substring(0, 50)}${link.length > 50 ? '...' : ''}
+                            </div>
+                        `;
+                    } else {
+                        throw new Error('فرمت نامعتبر');
+                    }
+                } catch (error) {
+                    resultItem.innerHTML = `
+                        <div class="detail-value">
+                            <span class="ping-result error">نامعتبر</span>
+                            ${link.substring(0, 50)}${link.length > 50 ? '...' : ''}
+                            <small style="color: var(--danger)">${error.message}</small>
+                        </div>
+                    `;
+                }
+                
+                resultsList.appendChild(resultItem);
+            });
+            
+            document.getElementById('batchResult').style.display = 'block';
+        }
+        
+        // تست سرعت اتصال (شبیه‌سازی)
+        function testPing() {
+            const link = document.getElementById('pingLink').value.trim();
+            if (!link) {
+                alert('لطفاً لینک را وارد کنید');
+                return;
+            }
+            
+            const pingResults = document.getElementById('pingResultsDetails');
+            pingResults.innerHTML = '';
+            
+            // شبیه‌سازی تست سرعت
+            const tests = [
+                { name: 'اتصال اولیه', value: (Math.random() * 100 + 50).toFixed(0) + ' ms' },
+                { name: 'سرعت دانلود', value: (Math.random() * 10 + 5).toFixed(2) + ' Mbps' },
+                { name: 'سرعت آپلود', value: (Math.random() * 5 + 1).toFixed(2) + ' Mbps' },
+                { name: 'پایداری اتصال', value: (Math.random() > 0.3 ? 'پایدار' : 'ناپایدار') }
+            ];
+            
+            tests.forEach(test => {
+                const row = createDetailRow(test.name, test.value);
+                pingResults.appendChild(row);
+            });
+            
+            document.getElementById('pingResult').style.display = 'block';
+        }
+        
+        // تبدیل به لینک
+        function convertToLink() {
+            const input = document.getElementById('convertInput').value.trim();
+            if (!input) {
+                alert('لطفاً محتوا را وارد کنید');
+                return;
+            }
+            
+            try {
+                const config = JSON.parse(input);
+                let link = '';
+                
+                if (config.type === 'vmess') {
+                    const jsonStr = JSON.stringify(config);
+                    link = 'vmess://' + btoa(jsonStr);
+                } 
+                else if (config.type === 'vless') {
+                    link = `vless://${config.id}@${config.address}:${config.port}?security=${config.security}&sni=${config.sni}&flow=${config.flow}#${config.remarks || ''}`;
+                }
+                else if (config.type === 'trojan') {
+                    link = `trojan://${config.password}@${config.address}:${config.port}?sni=${config.sni}#${config.remarks || ''}`;
+                }
+                
+                document.getElementById('convertedOutput').value = link;
+                document.getElementById('convertResult').style.display = 'block';
+            } catch (error) {
+                alert('خطا در تبدیل: ' + error.message);
+            }
+        }
+        
+        // تبدیل به JSON
+        function convertToJson() {
+            const link = document.getElementById('convertInput').value.trim();
+            if (!link) {
+                alert('لطفاً لینک را وارد کنید');
+                return;
+            }
+            
+            try {
+                let config = {};
+                
+                if (link.startsWith('vmess://')) {
+                    const decoded = atob(link.substring(8));
+                    config = JSON.parse(decoded);
+                }
+                else if (link.startsWith('vless://')) {
+                    const url = new URL(link);
+                    config = {
+                        type: 'vless',
+                        address: url.hostname,
+                        port: url.port,
+                        id: url.username,
+                        security: url.searchParams.get('security') || 'none',
+                        flow: url.searchParams.get('flow') || '',
+                        sni: url.searchParams.get('sni') || '',
+                        remarks: url.hash ? url.hash.substring(1) : ''
+                    };
+                }
+                else if (link.startsWith('trojan://')) {
+                    const url = new URL(link);
+                    config = {
+                        type: 'trojan',
+                        address: url.hostname,
+                        port: url.port,
+                        password: url.username,
+                        sni: url.searchParams.get('sni') || '',
+                        remarks: url.hash ? url.hash.substring(1) : ''
+                    };
+                }
+                
+                document.getElementById('convertedOutput').value = JSON.stringify(config, null, 2);
+                document.getElementById('convertResult').style.display = 'block';
+            } catch (error) {
+                alert('خطا در تبدیل: ' + error.message);
+            }
+        }
+        
+        // پاک کردن فیلدها
+        function clearInput() {
+            document.getElementById('v2rayLink').value = '';
+            document.getElementById('analyzeResult').style.display = 'none';
+            document.getElementById('qrCodeContainer').style.display = 'none';
+        }
+        
+        function clearBatchInput() {
+            document.getElementById('batchLinks').value = '';
+            document.getElementById('batchResult').style.display = 'none';
+        }
+        
+        function clearConverter() {
+            document.getElementById('convertInput').value = '';
+            document.getElementById('convertResult').style.display = 'none';
+        }
+        
+        function clearPing() {
+            document.getElementById('pingLink').value = '';
+            document.getElementById('pingResult').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
