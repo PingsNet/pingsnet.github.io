@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="تبدیل لینک سابسکریپشن V2Ray به کیوآرکد - ابزار آنلاین برای ساخت QR Code از لینک‌های vmess، vless و trojan">
+    <meta name="keywords" content="V2Ray, کیوآرکد, QR Code, سابسکریپشن, vmess, vless, تبدیل لینک به QR">
+    <meta name="author" content="Your Name">
+    <title>تبدیل لینک سابسکریپشن V2Ray به کیوآرکد | ابزار آنلاین</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #4a89dc;
+            --secondary-color: #3bafda;
+            --danger-color: #e74c3c;
+            --success-color: #2ecc71;
+            --dark-color: #34495e;
+            --light-color: #f5f7fa;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f7fa;
+            direction: rtl;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        h1 {
+            color: var(--dark-color);
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        .description {
+            color: #7f8c8d;
+            font-size: 16px;
+        }
+        
+        .input-section {
+            margin-bottom: 25px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+        
+        textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            min-height: 120px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 14px;
+            resize: vertical;
+            transition: border-color 0.3s;
+        }
+        
+        textarea:focus {
+            border-color: var(--primary-color);
+            outline: none;
+        }
+        
+        .buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+        
+        button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+            flex: 1;
+        }
+        
+        .btn-primary:hover {
+            background-color: #3a70c2;
+        }
+        
+        .btn-danger {
+            background-color: var(--danger-color);
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            background-color: #c44133;
+        }
+        
+        .qrcode-container {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+            border: 1px dashed #ddd;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+            min-height: 300px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        #qrcode {
+            margin: 20px 0;
+        }
+        
+        .qrcode-placeholder {
+            color: #95a5a6;
+            font-size: 16px;
+        }
+        
+        .instructions {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 30px;
+            border-right: 4px solid var(--primary-color);
+        }
+        
+        .instructions h3 {
+            color: var(--dark-color);
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+        
+        .instructions ol {
+            padding-right: 20px;
+        }
+        
+        .instructions li {
+            margin-bottom: 10px;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .feature {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .feature i {
+            font-size: 24px;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                margin: 15px;
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
+            
+            .buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-qrcode"></i> تبدیل لینک سابسکریپشن V2Ray به کیوآرکد</h1>
+            <p class="description">ابزار آنلاین برای ساخت QR Code از لینک‌های vmess، vless و trojan</p>
+        </header>
+        
+        <div class="input-section">
+            <label for="subscriptionLink">لینک سابسکریپشن V2Ray خود را وارد کنید:</label>
+            <textarea id="subscriptionLink" placeholder="لینک سابسکریپشن خود را اینجا قرار دهید (مثال: vmess://... یا vless://...)"></textarea>
+        </div>
+        
+        <div class="buttons">
+            <button class="btn-primary" onclick="generateQRCode()">
+                <i class="fas fa-qrcode"></i> ایجاد کیوآرکد
+            </button>
+            <button class="btn-danger" onclick="clearAll()">
+                <i class="fas fa-trash"></i> پاک کردن
+            </button>
+        </div>
+        
+        <div class="qrcode-container">
+            <div id="qrcode"></div>
+            <p class="qrcode-placeholder" id="placeholder">کیوآرکد شما اینجا نمایش داده می‌شود</p>
+        </div>
+        
+        <div class="features">
+            <div class="feature">
+                <i class="fas fa-shield-alt"></i>
+                <h3>امن و خصوصی</h3>
+                <p>تمامی پردازش‌ها در مرورگر شما انجام می‌شود و اطلاعات به سرور ارسال نمی‌شود</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-bolt"></i>
+                <h3>سریع و آسان</h3>
+                <p>تبدیل فوری لینک به کیوآرکد بدون نیاز به ثبت‌نام یا نصب نرم‌افزار</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-mobile-alt"></i>
+                <h3>سازگار با موبایل</h3>
+                <p>طراحی واکنش‌گرا که در تمام دستگاه‌ها به خوبی کار می‌کند</p>
+            </div>
+        </div>
+        
+        <div class="instructions">
+            <h3><i class="fas fa-info-circle"></i> راهنمای استفاده:</h3>
+            <ol>
+                <li>لینک سابسکریپشن V2Ray خود (vmess://، vless:// و ...) را در کادر بالا قرار دهید</li>
+                <li>روی دکمه "ایجاد کیوآرکد" کلیک کنید</li>
+                <li>کیوآرکد ایجاد شده را با اپلیکیشن کلاینت V2Ray خود اسکن کنید</li>
+                <li>برای شروع جدید می‌توانید از دکمه "پاک کردن" استفاده نمایید</li>
+            </ol>
+            <p><strong>توجه:</strong> این ابزار به اینترنت متصل نمی‌شود و تمام پردازش‌ها در دستگاه شما انجام می‌گیرد.</p>
+        </div>
+        
+        <footer>
+            <p>© ۱۴۰۲ - تمامی حقوق محفوظ است | این ابزار صرفاً برای مقاصد قانونی و آموزشی ارائه شده است</p>
+        </footer>
+    </div>
+
+    <script>
+        function generateQRCode() {
+            const subscriptionLink = document.getElementById('subscriptionLink').value.trim();
+            const placeholder = document.getElementById('placeholder');
+            
+            if (!subscriptionLink) {
+                alert('لطفاً لینک سابسکریپشن را وارد کنید');
+                return;
+            }
+            
+            // Clear previous QR code
+            document.getElementById('qrcode').innerHTML = '';
+            placeholder.style.display = 'none';
+            
+            // Generate new QR code
+            try {
+                new QRCode(document.getElementById('qrcode'), {
+                    text: subscriptionLink,
+                    width: 256,
+                    height: 256,
+                    colorDark: "#000000",
+                    colorLight: "#ffffff",
+                    correctLevel: QRCode.CorrectLevel.H
+                });
+            } catch (error) {
+                placeholder.style.display = 'block';
+                placeholder.textContent = 'خطا در ایجاد کیوآرکد! لطفاً لینک را بررسی کنید';
+                console.error(error);
+            }
+        }
+        
+        function clearAll() {
+            document.getElementById('subscriptionLink').value = '';
+            document.getElementById('qrcode').innerHTML = '';
+            const placeholder = document.getElementById('placeholder');
+            placeholder.style.display = 'block';
+            placeholder.textContent = 'کیوآرکد شما اینجا نمایش داده می‌شود';
+        }
+    </script>
+</body>
+</html>
