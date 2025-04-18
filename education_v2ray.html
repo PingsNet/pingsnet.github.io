@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="google-site-verification" content="Oj_a4RuFYPZHNV1sMs47OH3UU4rOgq3YyuZG3lOPphQ" />
-    <title>راهنمای نصب سابسکریپشن V2Ray | آموزش تصویری</title>
+    <title>راهنمای جامع نصب سابسکریپشن V2Ray | آموزش تصویری</title>
     <style>
         @font-face {
             font-family: 'Vazir';
@@ -13,52 +12,112 @@
             font-style: normal;
         }
         
+        :root {
+            --primary-color: #6e48aa;
+            --secondary-color: #9d50bb;
+            --accent-color: #ff9800;
+            --text-color: #333;
+            --light-bg: #f8f9fa;
+            --white: #ffffff;
+            --border-radius: 10px;
+            --box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
         body {
             font-family: 'Vazir', Tahoma, sans-serif;
             line-height: 1.8;
-            margin: 0;
-            padding: 0;
-            background-color: #f8f9fa;
-            color: #333;
+            background-color: var(--light-bg);
+            color: var(--text-color);
+            padding-bottom: 40px;
         }
         
         .container {
             max-width: 900px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 0 20px;
         }
         
         header {
-            background: linear-gradient(135deg, #6e48aa 0%, #9d50bb 100%);
-            color: white;
-            padding: 2rem 1rem;
-            border-radius: 10px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: var(--white);
+            padding: 2.5rem 1rem;
             margin-bottom: 30px;
             text-align: center;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: var(--box-shadow);
+            border-radius: 0 0 var(--border-radius) var(--border-radius);
         }
         
         h1 {
             margin: 0;
             font-size: 2.2rem;
             font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .header-description {
+            opacity: 0.9;
+            font-size: 1.1rem;
         }
         
         h2 {
-            color: #6e48aa;
+            color: var(--primary-color);
             border-bottom: 2px solid #eee;
-            padding-bottom: 10px;
-            margin-top: 40px;
+            padding-bottom: 12px;
+            margin: 40px 0 25px;
             font-size: 1.6rem;
+            position: relative;
+        }
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            bottom: -2px;
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            border-radius: 3px;
         }
         
         .app-guide {
-            background: white;
-            border-radius: 10px;
-            padding: 25px;
-            margin-bottom: 30px;
+            background: var(--white);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            margin-bottom: 35px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
             border: 1px solid #eee;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .app-guide:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .app-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+        
+        .app-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 18px;
+            margin-left: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            object-fit: cover;
+            border: 2px solid var(--white);
+        }
+        
+        .app-title {
+            flex: 1;
         }
         
         .steps {
@@ -67,19 +126,26 @@
         
         .step {
             position: relative;
-            padding-left: 60px;
-            margin-bottom: 25px;
-            min-height: 50px;
+            padding: 15px 15px 15px 75px;
+            margin-bottom: 20px;
+            background: rgba(110, 72, 170, 0.05);
+            border-radius: 8px;
+            border-right: 3px solid var(--primary-color);
         }
         
-        .step:before {
+        .step:last-child {
+            margin-bottom: 0;
+        }
+        
+        .step::before {
             counter-increment: step-counter;
             content: counter(step-counter);
             position: absolute;
-            left: 0;
-            top: 0;
-            background: #9d50bb;
-            color: white;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--primary-color);
+            color: var(--white);
             width: 40px;
             height: 40px;
             border-radius: 50%;
@@ -93,45 +159,105 @@
         
         .note {
             background: #f0f7ff;
-            border-right: 4px solid #6e48aa;
-            padding: 15px;
-            border-radius: 5px;
+            border-right: 4px solid var(--primary-color);
+            padding: 18px;
+            border-radius: 8px;
+            margin: 25px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .note::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary-color), var(--secondary-color));
+        }
+        
+        .note.warning {
+            background: #fff3e0;
+            border-right-color: var(--accent-color);
+        }
+        
+        .note.warning::before {
+            background: var(--accent-color);
+        }
+        
+        .screenshot-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
             margin: 20px 0;
         }
         
-        .app-icon {
-            width: 60px;
-            height: 60px;
-            border-radius: 15px;
-            margin-left: 15px;
-            float: right;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-        }
-        
-        .clearfix {
-            clear: both;
-        }
-        
         .screenshot {
+            flex: 1;
+            min-width: 250px;
             max-width: 100%;
             border-radius: 8px;
-            margin: 15px 0;
             box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
             border: 1px solid #ddd;
+            transition: transform 0.3s ease;
+        }
+        
+        .screenshot:hover {
+            transform: scale(1.02);
+        }
+        
+        .btn-download {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: var(--white);
+            padding: 12px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            margin-top: 15px;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(110, 72, 170, 0.3);
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn-download:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 15px rgba(110, 72, 170, 0.4);
         }
         
         @media (max-width: 768px) {
             .container {
-                padding: 15px;
+                padding: 0 15px;
             }
             
             h1 {
                 font-size: 1.8rem;
             }
             
+            .header-description {
+                font-size: 1rem;
+            }
+            
+            .app-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
             .app-icon {
-                width: 50px;
-                height: 50px;
+                margin: 0 0 15px 0;
+            }
+            
+            .step {
+                padding: 15px 15px 15px 60px;
+            }
+            
+            .step::before {
+                left: 10px;
+                width: 35px;
+                height: 35px;
+                font-size: 1rem;
             }
         }
     </style>
@@ -139,169 +265,158 @@
 <body>
     <div class="container">
         <header>
-            <h1>راهنمای کامل افزودن سابسکریپشن V2Ray</h1>
-            <p>آموزش تصویری نصب لینک اشتراک در اپلیکیشن‌های محبوب</p>
+            <h1>راهنمای جامع نصب سابسکریپشن V2Ray</h1>
+            <p class="header-description">آموزش تصویری و گام به گام برای اپلیکیشن‌های محبوب</p>
         </header>
 
         <div class="note">
-            <strong>نکته مهم:</strong> قبل از شروع، مطمئن شوید لینک سابسکریپشن معتبری از ارائه‌دهنده خدمات خود دریافت کرده‌اید.
+            <strong>نکته مهم:</strong> قبل از شروع، مطمئن شوید:
+            <ul style="margin-top: 10px; padding-right: 15px;">
+                <li>لینک سابسکریپشن معتبر از ارائه‌دهنده خدمات دارید</li>
+                <li>نسخه جدید اپلیکیشن را نصب کرده‌اید</li>
+                <li>اتصال اینترنت شما فعال است</li>
+            </ul>
         </div>
 
         <!-- V2RayNG -->
         <div class="app-guide">
-            <img src="https://play-lh.googleusercontent.com/3L4YqdB5QPPoO-bJsuQdKHcZ8J6x6K5Z-Nt6xT3kR-UZfT8IF7DOFs8p0Y7Xy5gtJQ=w240-h480-rw" alt="V2RayNG Icon" class="app-icon">
-            <h2>نصب سابسکریپشن در V2RayNG (اندروید)</h2>
-            <div class="steps">
-                <div class="step">
-                    <strong>مرحله ۱:</strong> اپلیکیشن V2RayNG را باز کنید.
-                </div>
-                
-                <div class="step">
-                    <strong>مرحله ۲:</strong> روی آیکون <strong>➕</strong> در گوشه پایین-راست صفحه ضربه بزنید.
-                </div>
-                
-                <div class="step">
-                    <strong>مرحله ۳:</strong> گزینه <strong>"Subscribe Settings"</strong> را انتخاب کنید.
-                </div>
-                
-                <div class="step">
-                    <strong>مرحله ۴:</strong> در قسمت <strong>"Address"</strong> لینک سابسکریپشن خود را وارد کنید.
-                </div>
-                
-                <div class="step">
-                    <strong>مرحله ۵:</strong> (اختیاری) یک نام برای این اشتراک وارد کنید (مثلاً: سرویس ایران).
-                </div>
-                
-                <div class="step">
-                    <strong>مرحله ۶:</strong> دکمه <strong>"OK"</strong> را بزنید.
-                </div>
-                
-                <div class="step">
-                    <strong>مرحله ۷:</strong> به صفحه اصلی برگردید و روی آیکون <strong>⟳</strong> (تازه‌سازی) در بالای صفحه ضربه بزنید.
+            <div class="app-header">
+                <img src="https://play-lh.googleusercontent.com/3L4YqdB5QPPoO-bJsuQdKHcZ8J6x6K5Z-Nt6xT3kR-UZfT8IF7DOFs8p0Y7Xy5gtJQ=w240-h480-rw" alt="V2RayNG Icon" class="app-icon">
+                <div class="app-title">
+                    <h2>نصب در V2RayNG (اندروید)</h2>
+                    <p>محبوب‌ترین کلاینت V2Ray برای دستگاه‌های اندرویدی</p>
                 </div>
             </div>
             
-            <div class="note">
-                💡 پس از تازه‌سازی، لیست سرورهای شما نمایش داده می‌شود. برای اتصال، روی سرور مورد نظر ضربه زده و دکمه <strong>▶</strong> را بزنید.
+            <div class="steps">
+                <div class="step">
+                    اپلیکیشن <strong>V2RayNG</strong> را اجرا کنید.
+                </div>
+                
+                <div class="step">
+                    روی آیکون <strong>➕</strong> در گوشه <strong>پایین-راست</strong> صفحه ضربه بزنید.
+                </div>
+                
+                <div class="step">
+                    از منوی ظاهر شده گزینه <strong>"Subscribe Settings"</strong> را انتخاب کنید.
+                </div>
+                
+                <div class="step">
+                    در قسمت <strong>"Address"</strong> لینک سابسکریپشن خود را وارد نمایید.
+                </div>
+                
+                <div class="step">
+                    (اختیاری) در قسمت <strong>"Remark"</strong> یک نام برای این اشتراک وارد کنید (مثلاً: سرویس پرسرعت).
+                </div>
+                
+                <div class="step">
+                    دکمه <strong>"OK"</strong> را برای ذخیره تنظیمات فشار دهید.
+                </div>
+                
+                <div class="step">
+                    به صفحه اصلی برگشته و روی آیکون <strong>⟳</strong> (تازه‌سازی) در <strong>بالای صفحه</strong> ضربه بزنید.
+                </div>
             </div>
+            
+            <div class="screenshot-container">
+                <img src="https://example.com/v2rayng-step1.jpg" alt="مراحل نصب در V2RayNG" class="screenshot">
+                <img src="https://example.com/v2rayng-step2.jpg" alt="مراحل نصب در V2RayNG" class="screenshot">
+            </div>
+            
+            <div class="note">
+                💡 <strong>راهنمای اتصال:</strong> پس از تازه‌سازی، لیست سرورها نمایش داده می‌شود. برای اتصال:
+                <ol style="margin-top: 10px; padding-right: 15px;">
+                    <li>سرور مورد نظر را انتخاب کنید</li>
+                    <li>دکمه <strong>▶</strong> (شروع) را بزنید</li>
+                    <li>آیکون کلید در نوار وضعیت نشان‌دهنده اتصال موفق است</li>
+                </ol>
+            </div>
+            
+            <a href="https://play.google.com/store/apps/details?id=com.v2ray.ang" class="btn-download">دانلود V2RayNG از گوگل پلی</a>
         </div>
 
         <!-- Shadowrocket -->
         <div class="app-guide">
-            <img src="https://is1-ssl.mzstatic.com/image/thumb/Purple126/v4/9d/9f/8f/9d9f8f9f-1b1f-1b1f-1b1f-1b1f1b1f1b1f/AppIcon-0-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/230x0w.webp" alt="Shadowrocket Icon" class="app-icon">
-            <h2>نصب سابسکریپشن در Shadowrocket (iOS)</h2>
-            <div class="steps">
-                <div class="step">
-                    <strong>مرحله ۱:</strong> اپلیکیشن Shadowrocket را اجرا کنید.
-                </div>
-                
-                <div class="step">
-                    <strong>مرحله ۲:</strong> به تب <strong>"Subscribe"</strong> در پایین صفحه بروید.
-                </div>
-                
-                <div class="step">
-                    <strong>مرحله ۳:</strong> روی آیکون <strong>➕</strong> در گوشه بالا-راست ضربه بزنید.
-                </div>
-                
-                <div class="step">
-                    <strong>مرحله ۴:</strong> در قسمت <strong>"URL"</strong> لینک سابسکریپشن خود را وارد کنید.
-                </div>
-                
-                <div class="step">
-                    <strong>مرحله ۵:</strong> (اختیاری) در قسمت <strong>"Remark"</strong> یک نام برای اشتراک وارد کنید.
-                </div>
-                
-                <div class="step">
-                    <strong>مرحله ۶:</strong> دکمه <strong>"Done"</strong> را در بالا-راست بزنید.
-                </div>
-                
-                <div class="step">
-                    <strong>مرحله ۷:</strong> برای تازه‌سازی، روی اشتراک خود ضربه زده و گزینه <strong>"Update"</strong> را انتخاب کنید.
+            <div class="app-header">
+                <img src="https://is1-ssl.mzstatic.com/image/thumb/Purple126/v4/9d/9f/8f/9d9f8f9f-1b1f-1b1f-1b1f-1b1f1b1f1b1f/AppIcon-0-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/230x0w.webp" alt="Shadowrocket Icon" class="app-icon">
+                <div class="app-title">
+                    <h2>نصب در Shadowrocket (iOS)</h2>
+                    <p>بهترین کلاینت V2Ray برای دستگاه‌های اپل</p>
                 </div>
             </div>
             
+            <div class="steps">
+                <div class="step">
+                    اپلیکیشن <strong>Shadowrocket</strong> را اجرا کنید.
+                </div>
+                
+                <div class="step">
+                    به تب <strong>"Subscribe"</strong> در پایین صفحه بروید.
+                </div>
+                
+                <div class="step">
+                    روی آیکون <strong>➕</strong> در گوشه <strong>بالا-راست</strong> ضربه بزنید.
+                </div>
+                
+                <div class="step">
+                    در قسمت <strong>"URL"</strong> لینک سابسکریپشن خود را وارد کنید.
+                </div>
+                
+                <div class="step">
+                    (اختیاری) در قسمت <strong>"Remark"</strong> یک نام برای اشتراک وارد نمایید.
+                </div>
+                
+                <div class="step">
+                    دکمه <strong>"Done"</strong> را در بالا-راست صفحه فشار دهید.
+                </div>
+                
+                <div class="step">
+                    برای تازه‌سازی، روی اشتراک خود ضربه زده و گزینه <strong>"Update"</strong> را انتخاب کنید.
+                </div>
+            </div>
+            
+            <div class="note warning">
+                ⚠ <strong>توجه:</strong> این برنامه ممکن است در اپ استور برخی کشورها موجود نباشد. می‌توانید از اپ استور دیگر کشورها یا روش‌های جایگزین استفاده کنید.
+            </div>
+            
             <div class="note">
-                🔍 در Shadowrocket می‌توانید با رفتن به تب "Config" تنظیمات پیشرفته‌تری مانند انتخاب پروتکل خاص را انجام دهید.
+                🔍 <strong>تنظیمات پیشرفته:</strong> در Shadowrocket می‌توانید:
+                <ul style="margin-top: 10px; padding-right: 15px;">
+                    <li>به تب <strong>"Config"</strong> بروید</li>
+                    <li>پروتکل مورد نظر را انتخاب کنید</li>
+                    <li>قوانین سفارشی برای سایت‌ها تعیین نمایید</li>
+                </ul>
             </div>
+            
+            <a href="https://apps.apple.com/us/app/shadowrocket/id932747118" class="btn-download">دانلود Shadowrocket از اپ استور</a>
         </div>
 
-        <!-- V2Box -->
-        <div class="app-guide">
-            <img src="https://play-lh.googleusercontent.com/3L4YqdB5QPPoO-bJsuQdKHcZ8J6x6K5Z-Nt6xT3kR-UZfT8IF7DOFs8p0Y7Xy5gtJQ=w240-h480-rw" alt="V2Box Icon" class="app-icon">
-            <h2>نصب سابسکریپشن در V2Box (اندروید)</h2>
-            <div class="steps">
-                <div class="step">
-                    <strong>مرحله ۱:</strong> اپلیکیشن V2Box را باز کنید.
-                </div>
-                
-                <div class="step">
-                    <strong>مرحله ۲:</strong> از منوی پایین، گزینه <strong>"Subscription"</strong> را انتخاب کنید.
-                </div>
-                
-                <div class="step">
-                    <strong>مرحله ۳:</strong> روی دکمه <strong>"Add Subscription"</strong> در بالای صفحه ضربه بزنید.
-                </div>
-                
-                <div class="step">
-                    <strong>مرحله ۴:</strong> در قسمت <strong>"URL"</strong> لینک اشتراک خود را وارد کنید.
-                </div>
-                
-                <div class="step">
-                    <strong>مرحله ۵:</strong> یک نام توصیفی در قسمت <strong>"Name"</strong> وارد کنید.
-                </div>
-                
-                <div class="step">
-                    <strong>مرحله ۶:</strong> دکمه <strong>"Save"</strong> را بزنید.
-                </div>
-                
-                <div class="step">
-                    <strong>مرحله ۷:</strong> برای تازه‌سازی، روی اشتراک مورد نظر کشیده و رها کنید (Swipe to refresh).
-                </div>
-            </div>
-        </div>
-
-        <!-- Streisand -->
-        <div class="app-guide">
-            <img src="https://play-lh.googleusercontent.com/3L4YqdB5QPPoO-bJsuQdKHcZ8J6x6K5Z-Nt6xT3kR-UZfT8IF7DOFs8p0Y7Xy5gtJQ=w240-h480-rw" alt="Streisand Icon" class="app-icon">
-            <h2>نصب سابسکریپشن در Streisand (اندروید)</h2>
-            <div class="steps">
-                <div class="step">
-                    <strong>مرحله ۱:</strong> اپلیکیشن Streisand را اجرا کنید.
-                </div>
-                
-                <div class="step">
-                    <strong>مرحله ۲:</strong> از منوی کشویی (سه خط در بالا-چپ) گزینه <strong>"Subscriptions"</strong> را انتخاب کنید.
-                </div>
-                
-                <div class="step">
-                    <strong>مرحله ۳:</strong> روی دکمه <strong>"Add Subscription"</strong> در پایین صفحه ضربه بزنید.
-                </div>
-                
-                <div class="step">
-                    <strong>مرحله ۴:</strong> در قسمت <strong>"Subscription URL"</strong> لینک خود را وارد کنید.
-                </div>
-                
-                <div class="step">
-                    <strong>مرحله ۵:</strong> یک نام مناسب در قسمت <strong>"Name"</strong> وارد کنید.
-                </div>
-                
-                <div class="step">
-                    <strong>مرحله ۶:</strong> دکمه <strong>"Save"</strong> را فشار دهید.
-                </div>
-                
-                <div class="step">
-                    <strong>مرحله ۷:</strong> برای به‌روزرسانی، روی اشتراک مورد نظر ضربه زده و گزینه <strong>"Update"</strong> را انتخاب کنید.
-                </div>
-            </div>
-        </div>
-
-        <div class="note" style="background: #fff3e0; border-right-color: #ff9800;">
-            <strong>راهنمای عیب‌یابی:</strong>
-            <ul>
-                <li>اگر سابسکریپشن تازه‌سازی نشد، از صحت لینک اطمینان حاصل کنید</li>
-                <li>در صورت خطای اتصال، بررسی کنید که اینترنت شما قطع نباشد</li>
-                <li>برخی سرویس‌ها نیاز به وارد کردن دستی UUID یا کلید دارند</li>
-                <li>همیشه از آخرین نسخه اپلیکیشن استفاده کنید</li>
+        <!-- سایر اپلیکیشن‌ها -->
+        
+        <div class="note warning">
+            <strong>راهنمای عیب‌یابی مشکلات رایج:</strong>
+            <ul style="margin-top: 10px; padding-right: 15px;">
+                <li><strong>سابسکریپشن تازه‌سازی نمی‌شود:</strong>
+                    <ul style="padding-right: 15px; margin-top: 5px;">
+                        <li>از صحت لینک اطمینان حاصل کنید</li>
+                        <li>اتصال اینترنت خود را بررسی نمایید</li>
+                        <li>نسخه برنامه را به روزرسانی کنید</li>
+                    </ul>
+                </li>
+                <li><strong>اتصال برقرار نمی‌شود:</strong>
+                    <ul style="padding-right: 15px; margin-top: 5px;">
+                        <li>سرور ممکن است موقتاً غیرفعال باشد</li>
+                        <li>تنظیمات پروکسی دستگاه را بررسی کنید</li>
+                        <li>از VPN دیگر برای تست اتصال استفاده کنید</li>
+                    </ul>
+                </li>
+                <li><strong>مشکلات دیگر:</strong>
+                    <ul style="padding-right: 15px; margin-top: 5px;">
+                        <li>همیشه از آخرین نسخه برنامه استفاده کنید</li>
+                        <li>در صورت نیاز، ارائه‌دهنده سرویس خود را مطلع کنید</li>
+                        <li>از کانفیگ‌های جایگزین استفاده نمایید</li>
+                    </ul>
+                </li>
             </ul>
         </div>
     </div>
