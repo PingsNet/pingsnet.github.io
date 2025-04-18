@@ -3,148 +3,154 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>راهنمای جامع نصب سابسکریپشن V2Ray | آموزش تصویری</title>
+    <meta name="description" content="آموزش کامل نصب و راه اندازی V2RayNG برای اندروید و V2Box برای آیفون - بهترین راهکار برای اتصال ایمن و پرسرعت">
+    <title>آموزش نصب V2RayNG و V2Box | راهنمای جامع اتصال ایمن</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/fonts.css">
     <style>
-        @font-face {
-            font-family: 'Vazir';
-            src: url('https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/Vazir.woff2') format('woff2');
-            font-weight: normal;
-            font-style: normal;
-        }
-        
         :root {
-            --primary-color: #6e48aa;
-            --secondary-color: #9d50bb;
-            --accent-color: #ff9800;
-            --text-color: #333;
-            --light-bg: #f8f9fa;
+            --primary: #6e48aa;
+            --secondary: #9d50bb;
+            --accent: #ff7e33;
+            --dark: #2c3e50;
+            --light: #f8f9fa;
             --white: #ffffff;
-            --border-radius: 10px;
-            --box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+            --border-radius: 12px;
+            --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
         }
-        
+
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
-        
+
         body {
-            font-family: 'Vazir', Tahoma, sans-serif;
+            font-family: 'Vazirmatn', sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
             line-height: 1.8;
-            background-color: var(--light-bg);
-            color: var(--text-color);
-            padding-bottom: 40px;
         }
-        
+
         .container {
-            max-width: 900px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
         }
-        
+
         header {
-            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: var(--white);
-            padding: 2.5rem 1rem;
-            margin-bottom: 30px;
+            padding: 3rem 0;
             text-align: center;
-            box-shadow: var(--box-shadow);
             border-radius: 0 0 var(--border-radius) var(--border-radius);
+            margin-bottom: 3rem;
+            box-shadow: var(--box-shadow);
         }
-        
+
         h1 {
-            margin: 0;
-            font-size: 2.2rem;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
             font-weight: 700;
-            margin-bottom: 10px;
         }
-        
+
         .header-description {
+            font-size: 1.2rem;
             opacity: 0.9;
-            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto;
         }
-        
+
         h2 {
-            color: var(--primary-color);
-            border-bottom: 2px solid #eee;
-            padding-bottom: 12px;
-            margin: 40px 0 25px;
-            font-size: 1.6rem;
+            color: var(--primary);
+            font-size: 1.8rem;
+            margin: 2.5rem 0 1.5rem;
             position: relative;
+            padding-bottom: 0.8rem;
         }
-        
+
         h2::after {
             content: '';
             position: absolute;
             right: 0;
-            bottom: -2px;
+            bottom: 0;
             width: 100px;
-            height: 3px;
-            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
-            border-radius: 3px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 2px;
         }
-        
-        .app-guide {
+
+        .app-card {
             background: var(--white);
             border-radius: var(--border-radius);
-            padding: 30px;
-            margin-bottom: 35px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-            border: 1px solid #eee;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            padding: 2.5rem;
+            margin-bottom: 3rem;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
         }
-        
-        .app-guide:hover {
+
+        .app-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
         }
-        
+
         .app-header {
             display: flex;
             align-items: center;
-            margin-bottom: 25px;
+            margin-bottom: 2rem;
         }
-        
+
         .app-icon {
-            width: 70px;
-            height: 70px;
-            border-radius: 18px;
-            margin-left: 20px;
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            margin-left: 1.5rem;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             object-fit: cover;
-            border: 2px solid var(--white);
+            border: 3px solid var(--white);
         }
-        
-        .app-title {
-            flex: 1;
+
+        .app-title h3 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
         }
-        
+
+        .app-title p {
+            color: var(--dark);
+            opacity: 0.8;
+        }
+
         .steps {
             counter-reset: step-counter;
+            margin-bottom: 2rem;
         }
-        
+
         .step {
             position: relative;
-            padding: 15px 15px 15px 75px;
-            margin-bottom: 20px;
+            padding: 1.2rem 1.2rem 1.2rem 5rem;
+            margin-bottom: 1rem;
             background: rgba(110, 72, 170, 0.05);
             border-radius: 8px;
-            border-right: 3px solid var(--primary-color);
+            border-right: 3px solid var(--primary);
         }
-        
+
         .step:last-child {
             margin-bottom: 0;
         }
-        
+
         .step::before {
             counter-increment: step-counter;
             content: counter(step-counter);
             position: absolute;
-            left: 15px;
+            left: 1.2rem;
             top: 50%;
             transform: translateY(-50%);
-            background: var(--primary-color);
+            background: var(--primary);
             color: var(--white);
             width: 40px;
             height: 40px;
@@ -156,17 +162,17 @@
             font-size: 1.2rem;
             box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
         }
-        
+
         .note {
             background: #f0f7ff;
-            border-right: 4px solid var(--primary-color);
-            padding: 18px;
+            border-right: 4px solid var(--primary);
+            padding: 1.5rem;
             border-radius: 8px;
-            margin: 25px 0;
+            margin: 1.5rem 0;
             position: relative;
             overflow: hidden;
         }
-        
+
         .note::before {
             content: '';
             position: absolute;
@@ -174,123 +180,257 @@
             top: 0;
             width: 4px;
             height: 100%;
-            background: linear-gradient(to bottom, var(--primary-color), var(--secondary-color));
+            background: linear-gradient(to bottom, var(--primary), var(--secondary));
         }
-        
+
+        .note i {
+            margin-left: 0.5rem;
+            color: var(--primary);
+        }
+
         .note.warning {
             background: #fff3e0;
-            border-right-color: var(--accent-color);
+            border-right-color: var(--warning);
         }
-        
+
         .note.warning::before {
-            background: var(--accent-color);
+            background: var(--warning);
         }
-        
-        .screenshot-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin: 20px 0;
+
+        .note.success {
+            background: #e8f5e9;
+            border-right-color: var(--success);
         }
-        
-        .screenshot {
-            flex: 1;
-            min-width: 250px;
-            max-width: 100%;
-            border-radius: 8px;
-            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
-            border: 1px solid #ddd;
-            transition: transform 0.3s ease;
+
+        .note.success::before {
+            background: var(--success);
         }
-        
-        .screenshot:hover {
-            transform: scale(1.02);
-        }
-        
-        .btn-download {
-            display: inline-block;
-            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: var(--white);
-            padding: 12px 25px;
+            padding: 0.8rem 1.8rem;
             border-radius: 30px;
             text-decoration: none;
-            margin-top: 15px;
-            font-weight: bold;
-            box-shadow: 0 4px 10px rgba(110, 72, 170, 0.3);
-            transition: all 0.3s ease;
+            font-weight: 500;
+            box-shadow: 0 4px 15px rgba(110, 72, 170, 0.3);
+            transition: var(--transition);
             border: none;
             cursor: pointer;
+            margin-top: 0.5rem;
+            margin-left: 0.5rem;
         }
-        
-        .btn-download:hover {
+
+        .btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 7px 15px rgba(110, 72, 170, 0.4);
+            box-shadow: 0 7px 20px rgba(110, 72, 170, 0.4);
+            color: var(--white);
         }
-        
+
+        .btn i {
+            margin-right: 0.5rem;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            box-shadow: none;
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .btn-warning {
+            background: var(--warning);
+            box-shadow: 0 4px 15px rgba(243, 156, 18, 0.3);
+        }
+
+        .btn-warning:hover {
+            box-shadow: 0 7px 20px rgba(243, 156, 18, 0.4);
+        }
+
+        .btn-success {
+            background: var(--success);
+            box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3);
+        }
+
+        .btn-success:hover {
+            box-shadow: 0 7px 20px rgba(46, 204, 113, 0.4);
+        }
+
+        .screenshot-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .screenshot {
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border: 1px solid #ddd;
+            transition: var(--transition);
+        }
+
+        .screenshot:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .purchase-section {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
+            border-radius: var(--border-radius);
+            padding: 2.5rem;
+            margin: 3rem 0;
+            text-align: center;
+            box-shadow: var(--box-shadow);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .purchase-section h2 {
+            color: var(--dark);
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .purchase-section p {
+            max-width: 700px;
+            margin: 0 auto 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .purchase-options {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        footer {
+            background: var(--dark);
+            color: var(--white);
+            padding: 2rem 0;
+            text-align: center;
+            margin-top: 3rem;
+            border-radius: var(--border-radius) var(--border-radius) 0 0;
+        }
+
+        footer p {
+            opacity: 0.8;
+            margin-bottom: 0.5rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: var(--white);
+            background: rgba(255, 255, 255, 0.1);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+
         @media (max-width: 768px) {
-            .container {
-                padding: 0 15px;
-            }
-            
             h1 {
-                font-size: 1.8rem;
+                font-size: 2rem;
             }
-            
+
             .header-description {
                 font-size: 1rem;
             }
-            
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .app-card {
+                padding: 1.5rem;
+            }
+
             .app-header {
                 flex-direction: column;
                 align-items: flex-start;
             }
-            
+
             .app-icon {
-                margin: 0 0 15px 0;
+                margin: 0 0 1rem 0;
             }
-            
+
             .step {
-                padding: 15px 15px 15px 60px;
+                padding: 1rem 1rem 1rem 4rem;
             }
-            
+
             .step::before {
-                left: 10px;
+                left: 0.8rem;
                 width: 35px;
                 height: 35px;
                 font-size: 1rem;
+            }
+
+            .purchase-section {
+                padding: 1.5rem;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>راهنمای جامع نصب سابسکریپشن V2Ray</h1>
-            <p class="header-description">آموزش تصویری و گام به گام برای اپلیکیشن‌های محبوب</p>
-        </header>
-
-        <div class="note">
-            <strong>نکته مهم:</strong> قبل از شروع، مطمئن شوید:
-            <ul style="margin-top: 10px; padding-right: 15px;">
-                <li>لینک سابسکریپشن معتبر از ارائه‌دهنده خدمات دارید</li>
-                <li>نسخه جدید اپلیکیشن را نصب کرده‌اید</li>
-                <li>اتصال اینترنت شما فعال است</li>
-            </ul>
+    <header>
+        <div class="container">
+            <h1><i class="fas fa-shield-alt"></i> راهنمای کامل V2RayNG و V2Box</h1>
+            <p class="header-description">آموزش تصویری نصب و راه اندازی برای اتصال ایمن و پرسرعت - مناسب برای اندروید و iOS</p>
         </div>
+    </header>
 
-        <!-- V2RayNG -->
-        <div class="app-guide">
+    <div class="container">
+        <!-- V2RayNG برای اندروید -->
+        <div class="app-card">
             <div class="app-header">
                 <img src="https://play-lh.googleusercontent.com/3L4YqdB5QPPoO-bJsuQdKHcZ8J6x6K5Z-Nt6xT3kR-UZfT8IF7DOFs8p0Y7Xy5gtJQ=w240-h480-rw" alt="V2RayNG Icon" class="app-icon">
                 <div class="app-title">
-                    <h2>نصب در V2RayNG (اندروید)</h2>
-                    <p>محبوب‌ترین کلاینت V2Ray برای دستگاه‌های اندرویدی</p>
+                    <h3>V2RayNG برای اندروید</h3>
+                    <p>قوی‌ترین و محبوب‌ترین کلاینت V2Ray برای دستگاه‌های اندرویدی</p>
                 </div>
             </div>
-            
+
+            <h2><i class="fas fa-download"></i> دانلود برنامه</h2>
+            <div class="note">
+                <i class="fas fa-info-circle"></i> برای دانلود آخرین نسخه V2RayNG از یکی از لینک‌های زیر استفاده کنید:
+            </div>
+            <div>
+                <a href="https://play.google.com/store/apps/details?id=com.v2ray.ang" class="btn" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-google-play"></i> گوگل ��لی
+                </a>
+                <a href="https://github.com/2dust/v2rayNG/releases" class="btn btn-outline" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-github"></i> GitHub
+                </a>
+            </div>
+
+            <h2><i class="fas fa-cogs"></i> راهنمای نصب و راه‌اندازی</h2>
             <div class="steps">
                 <div class="step">
-                    اپلیکیشن <strong>V2RayNG</strong> را اجرا کنید.
+                    برنامه <strong>V2RayNG</strong> را پس از دانلود نصب و اجرا کنید.
                 </div>
                 
                 <div class="step">
@@ -317,41 +457,61 @@
                     به صفحه اصلی برگشته و روی آیکون <strong>⟳</strong> (تازه‌سازی) در <strong>بالای صفحه</strong> ضربه بزنید.
                 </div>
             </div>
-            
-            <div class="screenshot-container">
-                <img src="https://example.com/v2rayng-step1.jpg" alt="مراحل نصب در V2RayNG" class="screenshot">
-                <img src="https://example.com/v2rayng-step2.jpg" alt="مراحل نصب در V2RayNG" class="screenshot">
-            </div>
-            
-            <div class="note">
-                💡 <strong>راهنمای اتصال:</strong> پس از تازه‌سازی، لیست سرورها نمایش داده می‌شود. برای اتصال:
+
+            <div class="note success">
+                <i class="fas fa-check-circle"></i> <strong>اتصال موفق:</strong> پس از تازه‌سازی، لیست سرورها نمایش داده می‌شود. برای اتصال:
                 <ol style="margin-top: 10px; padding-right: 15px;">
                     <li>سرور مورد نظر را انتخاب کنید</li>
                     <li>دکمه <strong>▶</strong> (شروع) را بزنید</li>
                     <li>آیکون کلید در نوار وضعیت نشان‌دهنده اتصال موفق است</li>
                 </ol>
             </div>
-            
-            <a href="https://play.google.com/store/apps/details?id=com.v2ray.ang" class="btn-download">دانلود V2RayNG از گوگل پلی</a>
+
+            <h2><i class="fas fa-images"></i> تصاویر راهنما</h2>
+            <div class="screenshot-container">
+                <img src="https://example.com/v2rayng-step1.jpg" alt="مراحل نصب در V2RayNG - مرحله 1" class="screenshot">
+                <img src="https://example.com/v2rayng-step2.jpg" alt="مراحل نصب در V2RayNG - مرحله 2" class="screenshot">
+                <img src="https://example.com/v2rayng-step3.jpg" alt="مراحل نصب در V2RayNG - مرحله 3" class="screenshot">
+            </div>
+
+            <div class="note warning">
+                <i class="fas fa-exclamation-triangle"></i> <strong>توجه:</strong> در صورت بروز مشکل در اتصال:
+                <ul style="margin-top: 10px; padding-right: 15px;">
+                    <li>از صحت لینک سابسکریپشن اطمینان حاصل کنید</li>
+                    <li>اتصال اینترنت خود را بررسی نمایید</li>
+                    <li>برنامه را به آخرین نسخه به‌روزرسانی کنید</li>
+                </ul>
+            </div>
         </div>
 
-        <!-- Shadowrocket -->
-        <div class="app-guide">
+        <!-- V2Box برای آیفون -->
+        <div class="app-card">
             <div class="app-header">
-                <img src="https://is1-ssl.mzstatic.com/image/thumb/Purple126/v4/9d/9f/8f/9d9f8f9f-1b1f-1b1f-1b1f-1b1f1b1f1b1f/AppIcon-0-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/230x0w.webp" alt="Shadowrocket Icon" class="app-icon">
+                <img src="https://is1-ssl.mzstatic.com/image/thumb/Purple126/v4/9d/9f/8f/9d9f8f9f-1b1f-1b1f-1b1f-1b1f1b1f1b1f/AppIcon-0-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/230x0w.webp" alt="V2Box Icon" class="app-icon">
                 <div class="app-title">
-                    <h2>نصب در Shadowrocket (iOS)</h2>
-                    <p>بهترین کلاینت V2Ray برای دستگاه‌های اپل</p>
+                    <h3>V2Box برای آیفون</h3>
+                    <p>بهترین کلاینت V2Ray برای دستگاه‌های iOS با رابط کاربری ساده</p>
                 </div>
             </div>
-            
+
+            <h2><i class="fas fa-download"></i> دانلود برنامه</h2>
+            <div class="note warning">
+                <i class="fas fa-exclamation-triangle"></i> این برنامه ممکن است در اپ استور برخی کشورها موجود نباشد. می‌توانید از اپ استور دیگر کشورها استفاده کنید.
+            </div>
+            <div>
+                <a href="https://apps.apple.com/us/app/v2box-v2ray-client/id1456508108" class="btn" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-apple"></i> اپ استور
+                </a>
+            </div>
+
+            <h2><i class="fas fa-cogs"></i> راهنمای نصب و راه‌اندازی</h2>
             <div class="steps">
                 <div class="step">
-                    اپلیکیشن <strong>Shadowrocket</strong> را اجرا کنید.
+                    برنامه <strong>V2Box</strong> را پس از دانلود نصب و اجرا کنید.
                 </div>
                 
                 <div class="step">
-                    به تب <strong>"Subscribe"</strong> در پایین صفحه بروید.
+                    به تب <strong>"Subscription"</strong> در پایین صفحه بروید.
                 </div>
                 
                 <div class="step">
@@ -367,58 +527,111 @@
                 </div>
                 
                 <div class="step">
-                    دکمه <strong>"Done"</strong> را در بالا-راست صفحه فشار دهید.
+                    دکمه <strong>"Save"</strong> را در بالا-راست صفحه فشار دهید.
                 </div>
                 
                 <div class="step">
                     برای تازه‌سازی، روی اشتراک خود ضربه زده و گزینه <strong>"Update"</strong> را انتخاب کنید.
                 </div>
             </div>
+
+            <div class="note success">
+                <i class="fas fa-check-circle"></i> <strong>اتصال موفق:</strong> پس از تازه‌سازی:
+                <ol style="margin-top: 10px; padding-right: 15px;">
+                    <li>به تب <strong>"Profiles"</strong> بروید</li>
+                    <li>پروفایل مورد نظر را انتخاب کنید</li>
+                    <li>دکمه <strong>"Connect"</strong> را فشار دهید</li>
+                </ol>
+            </div>
+
+            <h2><i class="fas fa-images"></i> تصاویر راهنما</h2>
+            <div class="screenshot-container">
+                <img src="https://example.com/v2box-step1.jpg" alt="مراحل نصب در V2Box - مرحله 1" class="screenshot">
+                <img src="https://example.com/v2box-step2.jpg" alt="مراحل نصب در V2Box - مرحله 2" class="screenshot">
+                <img src="https://example.com/v2box-step3.jpg" alt="مراحل نصب در V2Box - مرحله 3" class="screenshot">
+            </div>
+
+            <div class="note">
+                <i class="fas fa-lightbulb"></i> <strong>نکته فنی:</strong> در V2Box می‌توانید:
+                <ul style="margin-top: 10px; padding-right: 15px;">
+                    <li>به تب <strong>"Settings"</strong> بروید</li>
+                    <li>پروتکل مورد نظر را انتخاب کنید</li>
+                    <li>تنظیمات پیشرفته اتصال را تغییر دهید</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- بخش خرید سرویس -->
+        <div class="purchase-section">
+            <h2><i class="fas fa-crown"></i> نیاز به سرویس پرسرعت و پایدار دارید؟</h2>
+            <p>ما با ارائه سرویس‌های اختصاصی و با کیفیت، تجربه‌ای بی‌نظیر از اتصال ایمن و پرسرعت را برای شما فراهم می‌کنیم.</p>
+            
+            <div class="note success" style="max-width: 700px; margin: 0 auto 1.5rem;">
+                <i class="fas fa-star"></i> <strong>مزایای سرویس ما:</strong>
+                <ul style="margin-top: 10px; padding-right: 15px;">
+                    <li>سرورهای پرسرعت در موقعیت‌های جغرافیایی مختلف</li>
+                    <li>پشتیبانی 24 ساعته و پاسخگویی سریع</li>
+                    <li>امکان تست رایگان قبل از خرید</li>
+                    <li>نصب و راه‌اندازی سریع و آسان</li>
+                </ul>
+            </div>
+
+            <div class="purchase-options">
+                <a href="https://t.me/o2net_admin" class="btn btn-success" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-telegram"></i> خرید از طریق تلگرام
+                </a>
+                <a href="https://goftino.com/c/YWA45p" class="btn btn-warning" target="_blank" rel="noopener noreferrer">
+                    <i class="fas fa-comments"></i> خرید از طریق چت سایت
+                </a>
+            </div>
+        </div>
+
+        <!-- راهنمای عیب‌یابی -->
+        <div class="app-card">
+            <h2><i class="fas fa-tools"></i> راهنمای عیب‌یابی مشکلات رایج</h2>
             
             <div class="note warning">
-                ⚠ <strong>توجه:</strong> این برنامه ممکن است در اپ استور برخی کشورها موجود نباشد. می‌توانید از اپ استور دیگر کشورها یا روش‌های جایگزین استفاده کنید.
-            </div>
-            
-            <div class="note">
-                🔍 <strong>تنظیمات پیشرفته:</strong> در Shadowrocket می‌توانید:
+                <i class="fas fa-exclamation-circle"></i> <strong>سابسکریپشن تازه‌سازی نمی‌شود:</strong>
                 <ul style="margin-top: 10px; padding-right: 15px;">
-                    <li>به تب <strong>"Config"</strong> بروید</li>
-                    <li>پروتکل مورد نظر را انتخاب کنید</li>
-                    <li>قوانین سفارشی برای سایت‌ها تعیین نمایید</li>
+                    <li>از صحت لینک اطمینان حاصل کنید (با ارائه‌دهنده سرویس خود چک کنید)</li>
+                    <li>اتصال اینترنت خود را بررسی نمایید</li>
+                    <li>نسخه برنامه را به آخرین نسخه به‌روزرسانی کنید</li>
+                    <li>از VPN دیگر برای تست اتصال استفاده کنید</li>
                 </ul>
             </div>
             
-            <a href="https://apps.apple.com/us/app/shadowrocket/id932747118" class="btn-download">دانلود Shadowrocket از اپ استور</a>
-        </div>
-
-        <!-- سایر اپلیکیشن‌ها -->
-        
-        <div class="note warning">
-            <strong>راهنمای عیب‌یابی مشکلات رایج:</strong>
-            <ul style="margin-top: 10px; padding-right: 15px;">
-                <li><strong>سابسکریپشن تازه‌سازی نمی‌شود:</strong>
-                    <ul style="padding-right: 15px; margin-top: 5px;">
-                        <li>از صحت لینک اطمینان حاصل کنید</li>
-                        <li>اتصال اینترنت خود را بررسی نمایید</li>
-                        <li>نسخه برنامه را به روزرسانی کنید</li>
-                    </ul>
-                </li>
-                <li><strong>اتصال برقرار نمی‌شود:</strong>
-                    <ul style="padding-right: 15px; margin-top: 5px;">
-                        <li>سرور ممکن است موقتاً غیرفعال باشد</li>
-                        <li>تنظیمات پروکسی دستگاه را بررسی کنید</li>
-                        <li>از VPN دیگر برای تست اتصال استفاده کنید</li>
-                    </ul>
-                </li>
-                <li><strong>مشکلات دیگر:</strong>
-                    <ul style="padding-right: 15px; margin-top: 5px;">
-                        <li>همیشه از آخرین نسخه برنامه استفاده کنید</li>
-                        <li>در صورت نیاز، ارائه‌دهنده سرویس خود را مطلع کنید</li>
-                        <li>از کانفیگ‌های جایگزین استفاده نمایید</li>
-                    </ul>
-                </li>
-            </ul>
+            <div class="note warning">
+                <i class="fas fa-exclamation-circle"></i> <strong>اتصال برقرار نمی‌شود:</strong>
+                <ul style="margin-top: 10px; padding-right: 15px;">
+                    <li>سرور ممکن است موقتاً غیرفعال باشد (با ارائه‌دهنده سرویس خود چک کنید)</li>
+                    <li>تنظیمات پروکسی دستگاه را بررسی کنید</li>
+                    <li>از کانفیگ جایگزین استفاده نمایید</li>
+                    <li>برنامه را کاملاً بسته و مجدداً اجرا کنید</li>
+                </ul>
+            </div>
+            
+            <div class="note">
+                <i class="fas fa-question-circle"></i> <strong>راهنمایی بیشتر:</strong>
+                <ul style="margin-top: 10px; padding-right: 15px;">
+                    <li>همیشه از آخرین نسخه برنامه استفاده کنید</li>
+                    <li>در صورت نیاز، با ارائه‌دهنده سرویس خود تماس بگیرید</li>
+                    <li>برای راهنمایی بیشتر می‌توانید از طریق لینک‌های زیر با ما در تماس باشید</li>
+                </ul>
+            </div>
         </div>
     </div>
+
+    <footer>
+        <div class="container">
+            <p><i class="far fa-copyright"></i> تمام حقوق این راهنما محفوظ است - ۱۴۰۲</p>
+            <p>راهنمای جامع نصب و راه‌اندازی V2RayNG و V2Box</p>
+            
+            <div class="social-links">
+                <a href="https://t.me/o2net_admin" target="_blank" rel="noopener noreferrer"><i class="fab fa-telegram"></i></a>
+                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+                <a href="https://twitter.com" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter"></i></a>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
