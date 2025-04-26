@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>آموزش نصب V2Ray | سریع و کامل</title>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preload" href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/fonts/webfonts/Vazirmatn-Regular.woff2" as="font" type="font/woff2" crossorigin>
+  
+  <style>
+    @font-face {
+      font-family: 'Vazirmatn';
+      src: url('https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/fonts/webfonts/Vazirmatn-Regular.woff2') format('woff2');
+      font-display: swap;
+    }
+
+    :root {
+      --primary: #6e48aa;
+      --secondary: #9d50bb;
+      --dark: #2c3e50;
+      --light: #f8f9fa;
+      --white: #ffffff;
+      --radius: 12px;
+      --shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+      --transition: all 0.3s ease;
+    }
+
+    body {
+      font-family: 'Vazirmatn', sans-serif;
+      margin: 0;
+      background: var(--light);
+      color: var(--dark);
+      line-height: 1.8;
+      transition: var(--transition);
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      padding: 1rem;
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: var(--white);
+      text-align: center;
+      padding: 2rem 1rem 3rem;
+      border-radius: 0 0 var(--radius) var(--radius);
+      position: relative;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    /* دکمه تغییر تم */
+    .theme-toggle {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      background: var(--white);
+      border: none;
+      color: var(--primary);
+      font-weight: bold;
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius);
+      cursor: pointer;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+    }
+
+    .theme-toggle:hover {
+      background: var(--secondary);
+      color: var(--white);
+    }
+
+    section {
+      margin: 2rem 0;
+    }
+
+    article {
+      background: var(--white);
+      padding: 2rem;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      margin-bottom: 2rem;
+      transition: var(--transition);
+    }
+
+    article:hover {
+      transform: translateY(-5px);
+    }
+
+    .steps {
+      margin-top: 1rem;
+    }
+
+    .step {
+      background: #f0f0f5;
+      padding: 0.8rem 1rem;
+      margin-bottom: 0.5rem;
+      border-radius: 8px;
+      position: relative;
+      padding-right: 2.5rem;
+    }
+
+    .step::before {
+      content: "✓";
+      position: absolute;
+      right: 1rem;
+      color: var(--primary);
+      font-weight: bold;
+    }
+
+    .video-container {
+      overflow: hidden;
+      border-radius: var(--radius);
+      margin-top: 1rem;
+      box-shadow: var(--shadow);
+    }
+
+    .video-container video {
+      width: 100%;
+      display: block;
+    }
+
+    .download-buttons {
+      margin-top: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.7rem 1.5rem;
+      border-radius: 30px;
+      background: var(--primary);
+      color: var(--white);
+      text-decoration: none;
+      font-weight: 500;
+      transition: var(--transition);
+    }
+
+    .btn:hover {
+      background: var(--secondary);
+    }
+
+    footer {
+      background: var(--dark);
+      color: var(--white);
+      text-align: center;
+      padding: 1.5rem;
+      border-radius: var(--radius) var(--radius) 0 0;
+      margin-top: 3rem;
+      font-size: 0.9rem;
+    }
+
+    /* تم تاریک */
+    body.dark-mode {
+      background: #1e1e1e;
+      color: #dcdcdc;
+    }
+
+    body.dark-mode article {
+      background: #2b2b2b;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    }
+
+    body.dark-mode .step {
+      background: #3a3a3a;
+    }
+
+    body.dark-mode header {
+      background: linear-gradient(135deg, #8e44ad, #3498db);
+    }
+
+    body.dark-mode .btn {
+      background: #8e44ad;
+    }
+
+    body.dark-mode .btn:hover {
+      background: #9b59b6;
+    }
+
+    body.dark-mode footer {
+      background: #111;
+    }
+
+    /* تشخیص خودکار */
+    @media (prefers-color-scheme: dark) {
+      body:not(.light-mode) {
+        background: #1e1e1e;
+        color: #dcdcdc;
+      }
+
+      body:not(.light-mode) article {
+        background: #2b2b2b;
+      }
+
+      body:not(.light-mode) .step {
+        background: #3a3a3a;
+      }
+
+      body:not(.light-mode) header {
+        background: linear-gradient(135deg, #8e44ad, #3498db);
+      }
+
+      body:not(.light-mode) .btn {
+        background: #8e44ad;
+      }
+
+      body:not(.light-mode) .btn:hover {
+        background: #9b59b6;
+      }
+
+      body:not(.light-mode) footer {
+        background: #111;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <button class="theme-toggle" id="themeToggle">تغییر حالت</button>
+  <div class="container">
+    <h1><i class="fas fa-shield-alt"></i> آموزش سریع نصب V2Ray</h1>
+    <p>راهنمای اتصال در اندروید و آیفون</p>
+  </div>
+</header>
+
+<div class="container">
+
+  <section>
+    <article>
+      <h2>نصب V2RayNG در اندروید</h2>
+      <div class="steps">
+        <div class="step">دانلود اپ V2RayNG</div>
+        <div class="step">نصب و اجرای برنامه</div>
+        <div class="step">وارد کردن لینک یا سابسکریپشن</div>
+      </div>
+
+      <div class="video-container">
+        <video controls preload="metadata" poster="images/v2rayng-poster.jpg">
+          <source src="videos/VID_20250405_123805_758.mp4" type="video/mp4">
+        </video>
+      </div>
+
+      <div class="download-buttons">
+        <a href="https://play.google.com/store/apps/details?id=com.v2ray.ang" class="btn" target="_blank">
+          دانلود گوگل پلی
+        </a>
+        <a href="https://github.com/2dust/v2rayNG/releases" class="btn" target="_blank">
+          دانلود GitHub
+        </a>
+      </div>
+    </article>
+
+    <article>
+      <h2>نصب V2Box در آیفون</h2>
+      <div class="steps">
+        <div class="step">دانلود اپ V2Box از App Store</div>
+        <div class="step">نصب و اجرای برنامه</div>
+        <div class="step">وارد کردن لینک اتصال</div>
+      </div>
+
+      <div class="video-container">
+        <video controls preload="metadata" poster="images/v2box-poster.jpg">
+          <source src="videos/4_5924787916021700167.mp4" type="video/mp4">
+        </video>
+      </div>
+
+      <div class="download-buttons">
+        <a href="https://apps.apple.com/us/app/v2box-v2ray-client/id6450534064" class="btn" target="_blank">
+          دانلود از اپ استور
+        </a>
+      </div>
+    </article>
+  </section>
+
+</div>
+
+<footer>
+  <div class="container">
+    <p>تمامی حقوق محفوظ است - ۱۴۰۳</p>
+    <p>راهنمای کامل V2Ray</p>
+  </div>
+</footer>
+
+<script>
+  const toggleButton = document.getElementById('themeToggle');
+  toggleButton.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+    document.body.classList.toggle('light-mode');
+  });
+</script>
+
+</body>
+</html>
