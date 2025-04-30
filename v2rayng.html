@@ -1,222 +1,0 @@
-<!DOCTYPE html>
-<html lang="fa" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>آموزش وارد کردن لینک سابسکریپشن در V2rayNG</title>
-    <!-- لینک فونت‌های فارسی از گوگل فونت -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/droidarabicnaskh.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/samim.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/sahel.css">
-    <style>
-        body {
-            font-family: 'Sahel', 'Samim', 'Droid Arabic Naskh', Tahoma, Arial, sans-serif;
-            background-color: #f8f9fa;
-            margin: 0;
-            padding: 0;
-            line-height: 1.8;
-            color: #333;
-        }
-        .container {
-            max-width: 900px;
-            margin: 20px auto;
-            padding: 30px;
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 25px rgba(0,0,0,0.08);
-        }
-        header {
-            background: linear-gradient(135deg, #4CAF50, #2E7D32);
-            color: white;
-            padding: 25px;
-            border-radius: 8px;
-            text-align: center;
-            margin-bottom: 40px;
-            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.2);
-        }
-        h1 {
-            margin: 0;
-            font-size: 28px;
-            font-weight: 700;
-            font-family: 'Samim', sans-serif;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        h2 {
-            color: #2E7D32;
-            border-bottom: 2px solid #4CAF50;
-            padding-bottom: 8px;
-            margin-top: 40px;
-            font-family: 'Samim', sans-serif;
-            font-size: 22px;
-            font-weight: 600;
-        }
-        .video-container {
-            margin: 30px 0;
-            text-align: center;
-            background: #f1f8e9;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
-        }
-        video {
-            width: 100%;
-            max-width: 650px;
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            border: 1px solid #e0e0e0;
-        }
-        .step {
-            background-color: #f1f8e9;
-            padding: 20px;
-            border-right: 4px solid #4CAF50;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            transition: all 0.3s ease;
-        }
-        .step:hover {
-            transform: translateX(-5px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-        .step-number {
-            display: inline-block;
-            background: linear-gradient(135deg, #4CAF50, #2E7D32);
-            color: white;
-            width: 30px;
-            height: 30px;
-            text-align: center;
-            border-radius: 50%;
-            margin-left: 15px;
-            font-weight: bold;
-            line-height: 30px;
-            font-family: 'Droid Arabic Naskh', serif;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        .note {
-            background-color: #fff8e1;
-            padding: 20px;
-            border-right: 4px solid #ffc107;
-            border-radius: 8px;
-            margin: 25px 0;
-            font-family: 'Droid Arabic Naskh', serif;
-        }
-        .note strong {
-            color: #ff8f00;
-        }
-        .code {
-            background: linear-gradient(135deg, #263238, #1c313a);
-            color: #e0f7fa;
-            padding: 15px;
-            border-radius: 8px;
-            font-family: 'Droid Arabic Naskh', monospace;
-            overflow-x: auto;
-            direction: ltr;
-            text-align: left;
-            margin: 15px 0;
-            border-left: 4px solid #4CAF50;
-        }
-        p, li {
-            font-family: 'Sahel', sans-serif;
-            font-size: 16px;
-        }
-        ul {
-            padding-right: 20px;
-        }
-        li {
-            margin-bottom: 8px;
-        }
-        @media (max-width: 768px) {
-            .container {
-                padding: 15px;
-                margin: 10px;
-            }
-            h1 {
-                font-size: 22px;
-            }
-            h2 {
-                font-size: 19px;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <header>
-            <h1>آموزش کامل وارد کردن لینک سابسکریپشن در V2rayNG</h1>
-        </header>
-
-        <section>
-            <h2>📺 فیلم آموزشی</h2>
-            <div class="video-container">
-                <video controls poster="v2rayng-poster.jpg" width="600">
-                    <source src="VID_20250405_123805_758.mp4" type="video/mp4">
-                    <source src="v2rayng-tutorial.webm" type="video/webm">
-                    مرورگر شما از پخش ویدیو پشتیبانی نمی‌کند.
-                </video>
-                <p style="margin-top: 15px; color: #666; font-size: 14px;">برای مشاهده با کیفیت بالاتر، ویدیو را در حالت تمام صفحه تماشا کنید.</p>
-            </div>
-        </section>
-
-        <section>
-            <h2>📝 آموزش مرحله به مرحله</h2>
-            
-            <div class="step">
-                <span class="step-number">۱</span>
-                <strong>دانلود و نصب برنامه</strong>
-                <p>ابتدا آخرین نسخه برنامه V2rayNG را از منابع معتبر دانلود و نصب کنید.</p>
-            </div>
-            
-            <div class="step">
-                <span class="step-number">۲</span>
-                <strong>ورود به بخش سابسکریپشن</strong>
-                <p>پس از باز کردن برنامه، از منوی پایین روی گزینه <strong>سابسکریپشن‌ها</strong> کلیک کنید.</p>
-            </div>
-            
-            <div class="step">
-                <span class="step-number">۳</span>
-                <strong>افزودن لینک جدید</strong>
-                <p>روی علامت <strong>+</strong> در بالای صفحه کلیک کنید و گزینه <strong>Add subscription</strong> را انتخاب نمایید.</p>
-            </div>
-            
-            <div class="step">
-                <span class="step-number">۴</span>
-                <strong>وارد کردن اطلاعات</strong>
-                <p>در قسمت ظاهر شده:</p>
-                <ul>
-                    <li>در فیلد <strong>Remarks</strong> یک نام برای سابسکریپشن وارد کنید</li>
-                    <li>در فیلد <strong>URL</strong> لینک سابسکریپشن خود را وارد نمایید</li>
-                </ul>
-                <div class="code">
-                    مثال لینک سابسکریپشن:<br>
-                    https://example.com/subscription/link
-                </div>
-            </div>
-            
-            <div class="step">
-                <span class="step-number">۵</span>
-                <strong>ذخیره و به روزرسانی</strong>
-                <p>پس از وارد کردن اطلاعات، روی <strong>OK</strong> کلیک کنید. سپس با کشیدن صفحه به پایین یا زدن دکمه <strong>به‌روزرسانی</strong> سابسکریپشن را آپدیت کنید.</p>
-            </div>
-            
-            <div class="note">
-                <strong>توجه مهم:</strong> لینک‌های سابسکریپشن معمولاً محرمانه هستند و نباید با دیگران به اشتراک گذاشته شوند. در صورت اشتراک گذاری ممکن است دسترسی شما قطع شود.
-            </div>
-        </section>
-        
-        <section>
-            <h2>⚠️ مشکلات متداول</h2>
-            <div class="step">
-                <p><strong>مشکل:</strong> سابسکریپشن به روز نمی‌شود</p>
-                <p><strong>راه حل:</strong> از صحت لینک وارد شده اطمینان حاصل کنید و اینترنت خود را بررسی نمایید. همچنین ممکن است سرویس دهنده مشکل داشته باشد.</p>
-            </div>
-            <div class="step">
-                <p><strong>مشکل:</strong> خطای "Invalid subscription link"</p>
-                <p><strong>راه حل:</strong> لینک ممکن است منقضی شده باشد یا حاوی اشتباه باشد. لینک جدیدی از ارائه دهنده سرویس دریافت کنید. همچنین مطمئن شوید لینک را کامل کپی کرده‌اید.</p>
-            </div>
-            <div class="step">
-                <p><strong>مشکل:</strong> برنامه به اینترنت متصل نمی‌شود</p>
-                <p><strong>راه حل:</strong> بررسی کنید که پروکسی یا VPN دیگری فعال نباشد. همچنین ممکن است نیاز به تنظیمات خاصی در برنامه داشته باشید.</p>
-            </div>
-        </section>
-    </div>
-</body>
-</html>
