@@ -19,7 +19,7 @@ jobs:
           fetch-depth: 0 # تمام تاریخچه commitها را دریافت می‌کند
 
       - name: Generate Sitemap
-        uses: cicirello/generate-sitemap@b2b7a830e6
+        uses: cicirello/generate-sitemap@v1
         with:
           base-url-path: "https://pingsnet.github.io"
           change-frequency: "weekly"
