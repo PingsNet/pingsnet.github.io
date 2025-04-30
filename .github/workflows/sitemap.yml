@@ -1,42 +1,60 @@
-name: Auto Sitemap Generator
+name: Auto Generate Sitemap & Robots.txt
 on:
   push:
     branches: [ main ]
   schedule:
-    - cron: '0 0 * * *' # روزانه در نیمه‌شب UTC اجرا می‌شود
+    - cron: '0 0 * * *' # روزانه در نیمه‌شب اجرا می‌شود
 
 permissions:
-  contents: write
-  pull-requests: write
+  contents: write # دسترسی نوشتن برای کامیت خودکار
 
 jobs:
-  generate-sitemap:
+  generate-seo-files:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repository
+      # مرحله 1: دریافت کدهای ریپو
+      - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # تمام تاریخچه commitها را دریافت می‌کند
+          fetch-depth: 0 # دریافت تمام تاریخچه کامیت‌ها
 
+      # مرحله 2: تولید خودکار sitemap.xml
       - name: Generate Sitemap
         uses: cicirello/generate-sitemap@v1
         with:
-          base-url-path: "https://pingsnet.github.io"
-          change-frequency: "weekly"
-          include-extension: ".html"
-          exclude-extension: ".md"
-          trailing-slash: false
-          priority: "0.8"
+          base-url-path: "https://pingsnet.github.io" # آدرس سایت شما
+          change-frequency: "weekly" # فرکانس تغییرات
+          priority: "0.8" # اولویت پیش‌فرض
+          include-extension: ".html" # فقط فایل‌های HTML
+          exclude-extension: ".md" # حذف فایل‌های Markdown
+          trailing-slash: false # بدون اسلش در انتها
 
+      # مرحله 3: ایجاد فایل robots.txt
+      - name: Create robots.txt
+        run: |
+          cat << EOF > robots.txt
+          User-agent: *
+          Allow: /
+          Disallow: /private/
+          Disallow: /temp/
+          Disallow: /drafts/
+          Crawl-delay: 10
+          
+          Sitemap: https://pingsnet.github.io/sitemap.xml
+          EOF
+
+      # مرحله 4: ارسال تغییرات به ریپو
       - name: Commit and Push Changes
         run: |
-          # تنظیمات Git
+          # تنظیمات کاربر Git
           git config --global user.name "GitHub Actions Bot"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.email "actions@github.com"
           
-          # اضافه کردن و commit تغییرات
-          git add sitemap.xml
-          git diff --quiet && git diff --staged --quiet || git commit -m "Auto-generated sitemap [skip ci]"
+          # اضافه کردن فایل‌ها
+          git add sitemap.xml robots.txt
           
-          # Push تغییرات با استفاده از توکن خودکار
-          git push "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" HEAD:main
+          # کامیت تغییرات
+          git diff --quiet && git diff --staged --quiet || git commit -m "Auto-generated SEO files [skip ci]"
+          
+          # ارسال تغییرات
+          git push origin main
