@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /private/
+Disallow: /temp/
+Disallow: /drafts/
+Crawl-delay: 10
+
+Sitemap: https://pingsnet.github.io/sitemap.xml
