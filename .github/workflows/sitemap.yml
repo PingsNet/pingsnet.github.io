@@ -1,28 +1,42 @@
-name: Generate Sitemap
+name: Auto Sitemap Generator
 on:
   push:
-    branches: [ main ] # اگر از برنچ دیگری استفاده می‌کنید، نام آن را جایگزین کنید
+    branches: [ main ]
   schedule:
-    - cron: '0 0 * * *' # هر روز نیمه‌شب sitemap را به‌روز می‌کند
+    - cron: '0 0 * * *' # روزانه در نیمه‌شب UTC اجرا می‌شود
+
+permissions:
+  contents: write
+  pull-requests: write
 
 jobs:
-  build:
+  generate-sitemap:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    
-    - name: Generate Sitemap
-      uses: cicirello/generate-sitemap@v1
-      with:
-        base-url-path: "https://pingsnet.github.io" # آدرس GitHub Pages خود را وارد کنید
-        change-frequency: "weekly" # می‌توانید daily/weekly/monthly/yearly انتخاب کنید
-        include-extension: ".html" # فقط فایل‌های HTML را شامل شود
-        exclude-extension: ".md" # فایل‌های markdown را حذف می‌کند
-    
-    - name: Commit and Push Changes
-      run: |
-        git config --global user.name "GitHub Actions"
-        git config --global user.email "actions@github.com"
-        git add sitemap.xml
-        git commit -m "Auto-generated sitemap [skip ci]" || echo "No changes to commit"
-        git push
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # تمام تاریخچه commitها را دریافت می‌کند
+
+      - name: Generate Sitemap
+        uses: cicirello/generate-sitemap@v2
+        with:
+          base-url-path: "https://pingsnet.github.io"
+          change-frequency: "weekly"
+          include-extension: ".html"
+          exclude-extension: ".md"
+          trailing-slash: false
+          priority: "0.8"
+
+      - name: Commit and Push Changes
+        run: |
+          # تنظیمات Git
+          git config --global user.name "GitHub Actions Bot"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # اضافه کردن و commit تغییرات
+          git add sitemap.xml
+          git diff --quiet && git diff --staged --quiet || git commit -m "Auto-generated sitemap [skip ci]"
+          
+          # Push تغییرات با استفاده از توکن خودکار
+          git push "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" HEAD:main
